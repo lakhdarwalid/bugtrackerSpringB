@@ -1,0 +1,17 @@
+package com.bugtracker.security;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface UserRepo extends JpaRepository<User, Long>{
+	
+	Optional<User> findByUserName(String userName);
+	
+	@Query("select a from User a where a.userName like %?1%")
+    public List<User> searchByName(String name);
+}
